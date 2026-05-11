@@ -16,13 +16,13 @@ vectorstore = FAISS.load_local(
 )
 
 retriever = vectorstore.as_retriever(
-search_kwargs={"k": 3}
+search_kwargs={"k":5}
 )
 
 def ask_question(user_query):
     import time
     start = time.time()
-    latency = round(time.time() - start, 2)
+    
     docs = retriever.invoke(user_query)
 
     context = "\n\n".join([
@@ -47,7 +47,7 @@ Answer:
 """
 
     answer = generate_llm_response(final_prompt)
-
+    latency = round(time.time() - start, 2)
     return answer, docs, latency
 
 if __name__ == "__main__":

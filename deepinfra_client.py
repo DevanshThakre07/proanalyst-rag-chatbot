@@ -53,7 +53,7 @@ def generate_llm_response(prompt):
             }
         ],
         temperature=0.2,
-        max_tokens=300
+        max_tokens=600
     )
 
     return response.choices[0].message.content
