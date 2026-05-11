@@ -1,16 +1,30 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv(".env")
-# print(os.getenv("DEEPINFRA_API_KEY"))
+# load_dotenv(".env")
+# # print(os.getenv("DEEPINFRA_API_KEY"))
 
-client = OpenAI(
-    api_key=os.getenv("DEEPINFRA_API_KEY"),
-    base_url="https://api.deepinfra.com/v1/openai"
+# client = OpenAI(
+#     api_key=os.getenv("DEEPINFRA_API_KEY"),
+#     base_url="https://api.deepinfra.com/v1/openai"
+# )
+
+# MODEL_NAME = os.getenv("DEEPINFRA_MODEL")
+load_dotenv()
+
+API_KEY = os.getenv("DEEPINFRA_API_KEY") or st.secrets["DEEPINFRA_API_KEY"]
+
+MODEL_NAME = (
+    os.getenv("DEEPINFRA_MODEL")
+    or st.secrets["DEEPINFRA_MODEL"]
 )
 
-MODEL_NAME = os.getenv("DEEPINFRA_MODEL")
+client = OpenAI(
+    api_key=API_KEY,
+    base_url="https://api.deepinfra.com/v1/openai"
+)
 
 SYSTEM_PROMPT = """
 You are a technical support assistant.
